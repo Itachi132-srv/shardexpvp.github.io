@@ -14,14 +14,44 @@
   box-sizing:border-box;
   font-family:'Minecraft',sans-serif;
 }
+
 html{scroll-behavior:smooth;}
+
 body{
-  background:#000;
+  background:black;
   color:white;
   overflow-x:hidden;
 }
 
-/* ===== NAVBAR ===== */
+/* 🌌 PIXEL FALLING ITEMS */
+.falling{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+}
+
+.item{
+  position:absolute;
+  top:-40px;
+  width:18px;
+  height:18px;
+  background:#00ff66;
+  box-shadow:
+    0 0 6px #00ff66,
+    0 0 12px rgba(0,255,100,0.6);
+  animation:fall linear infinite;
+}
+
+.item.diamond{background:#4fffff; box-shadow:0 0 10px #4fffff;}
+.item.red{background:#ff3b3b; box-shadow:0 0 10px #ff3b3b;}
+.item.gold{background:#ffcc00; box-shadow:0 0 10px #ffcc00;}
+
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(180deg);}
+}
+
+/* 🔝 NAVBAR */
 .navbar{
   position:sticky;
   top:0;
@@ -30,121 +60,74 @@ body{
   justify-content:space-between;
   align-items:center;
   padding:14px 20px;
-  background:rgba(0,0,0,0.75);
+  background:rgba(0,0,0,0.85);
   border-bottom:1px solid #222;
 }
+
+.logo{font-size:22px;}
+
 .menu{
-  display:none;
   font-size:26px;
   cursor:pointer;
+  display:none;
 }
+
+/* MENU */
 .nav-links{
   list-style:none;
   display:flex;
   gap:25px;
 }
+
 .nav-links li{
   cursor:pointer;
-  opacity:.85;
+  opacity:0.8;
 }
 .nav-links li:hover{opacity:1;}
 
+/* 📱 MOBILE MENU */
 @media(max-width:768px){
   .menu{display:block;}
+
   .nav-links{
     position:absolute;
     top:60px;
     right:0;
+    width:220px;
     background:#050505;
     flex-direction:column;
-    width:220px;
     padding:15px;
+    transform:translateY(-10px);
     opacity:0;
     pointer-events:none;
-    transform:translateY(-10px);
-    transition:.3s;
+    transition:0.35s ease;
+    border-left:1px solid #222;
   }
+
   .nav-links.show{
+    transform:translateY(0);
     opacity:1;
     pointer-events:auto;
-    transform:none;
   }
 }
 
-/* ===== PAGES ===== */
+/* 📄 PAGES */
 .page{
   min-height:90vh;
   padding:50px 20px;
   text-align:center;
   display:none;
-  animation:fade .5s ease;
+  animation:pageFade 0.5s ease;
 }
+
 .page.active{display:block;}
-@keyframes fade{
-  from{opacity:0;transform:translateY(25px);}
-  to{opacity:1;transform:translateY(0);}
+
+@keyframes pageFade{
+  from{opacity:0; transform:translateY(25px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
-/* ===== HOME MINECRAFT BACKGROUND ===== */
-.mc-bg{
-  position:absolute;
-  inset:0;
-  z-index:-1;
-  overflow:hidden;
-}
-
-/* SKY */
-.sky{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(#4aa3ff,#9dd6ff);
-  animation:skyShift 14s linear infinite;
-}
-@keyframes skyShift{
-  50%{background:linear-gradient(#020111,#191970);}
-}
-
-/* SUN & MOON */
-.sun,.moon{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  border-radius:50%;
-}
-.sun{
-  width:110px;height:110px;
-  background:#ffcc33;
-  top:60%;
-  animation:sunMove 14s linear infinite;
-}
-.moon{
-  width:85px;height:85px;
-  background:#ddd;
-  top:120%;
-  animation:moonMove 14s linear infinite;
-}
-@keyframes sunMove{
-  0%{top:60%;opacity:1;}
-  50%{top:120%;opacity:0;}
-  100%{top:60%;opacity:1;}
-}
-@keyframes moonMove{
-  0%{top:120%;opacity:0;}
-  50%{top:25%;opacity:1;}
-  100%{top:120%;opacity:0;}
-}
-
-/* PIXEL GROUND */
-.ground{
-  position:absolute;
-  bottom:0;
-  width:100%;
-  height:35%;
-  background:
-    linear-gradient(#3b7a1c 0 40%, #2d5f15 40% 100%);
-}
-
-/* ===== DISCORD BUTTON ===== */
+/* 🔘 DISCORD */
 .discord-btn{
   margin-top:35px;
   display:inline-flex;
@@ -158,29 +141,32 @@ body{
   position:relative;
   overflow:hidden;
 }
+
 .discord-btn img{
   width:22px;
   filter:invert(1);
 }
 
-/* TNT BLAST */
+/* 💥 TNT */
 .tnt{
   position:absolute;
   inset:0;
   background:#ff2b2b;
-  animation:blast .6s ease forwards;
-}
-@keyframes blast{
-  to{opacity:0;transform:scale(3);}
+  animation:blast 0.6s ease forwards;
 }
 
-/* ===== GALLERY ===== */
+@keyframes blast{
+  to{opacity:0; transform:scale(3);}
+}
+
+/* 🖼️ GALLERY */
 .grid{
   margin-top:35px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
   gap:15px;
 }
+
 .grid img{
   width:100%;
   border-radius:6px;
@@ -191,9 +177,19 @@ body{
 
 <body>
 
-<!-- NAVBAR -->
+<!-- 🌌 Falling Pixel Items -->
+<div class="falling">
+  <div class="item diamond" style="left:10%;animation-duration:7s;"></div>
+  <div class="item gold" style="left:25%;animation-duration:9s;"></div>
+  <div class="item red" style="left:40%;animation-duration:6s;"></div>
+  <div class="item diamond" style="left:55%;animation-duration:10s;"></div>
+  <div class="item gold" style="left:70%;animation-duration:8s;"></div>
+  <div class="item red" style="left:85%;animation-duration:7s;"></div>
+</div>
+
+<!-- 🔝 NAV -->
 <div class="navbar">
-  <div>Shardex PvP</div>
+  <div class="logo">Shardex PvP</div>
   <div class="menu" onclick="toggleMenu()">☰</div>
   <ul class="nav-links" id="menu">
     <li onclick="openPage('home')">Home</li>
@@ -204,13 +200,6 @@ body{
 
 <!-- HOME -->
 <div class="page active" id="home">
-  <div class="mc-bg">
-    <div class="sky"></div>
-    <div class="sun"></div>
-    <div class="moon"></div>
-    <div class="ground"></div>
-  </div>
-
   <h1>Shardex PvP</h1>
   <p>Minecraft PvP Records</p>
 
@@ -227,6 +216,13 @@ body{
     <img src="PASTE_LINK">
     <img src="PASTE_LINK">
     <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
   </div>
 </div>
 
@@ -234,6 +230,13 @@ body{
 <div class="page" id="cpvp">
   <h2>CPVP Wins</h2>
   <div class="grid">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
     <img src="PASTE_LINK">
     <img src="PASTE_LINK">
     <img src="PASTE_LINK">
@@ -246,17 +249,20 @@ function openPage(id){
   document.getElementById(id).classList.add('active');
   document.getElementById('menu').classList.remove('show');
 }
+
 function toggleMenu(){
   document.getElementById('menu').classList.toggle('show');
 }
+
 function blastAndJoin(){
   const btn=document.querySelector('.discord-btn');
-  const t=document.createElement('div');
-  t.className='tnt';
-  btn.appendChild(t);
+  const tnt=document.createElement('div');
+  tnt.className='tnt';
+  btn.appendChild(tnt);
+
   setTimeout(()=>{
     window.open("https://discord.gg/uNyfFKx8rC","_blank");
-    t.remove();
+    tnt.remove();
   },500);
 }
 </script>
