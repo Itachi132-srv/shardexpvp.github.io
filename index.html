@@ -15,9 +15,7 @@
   font-family:'Minecraft',sans-serif;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth;}
 
 body{
   background:black;
@@ -25,29 +23,45 @@ body{
   overflow-x:hidden;
 }
 
-/* 🔥 Falling Minecraft Items */
-.falling span{
+/* 🌌 PIXEL FALLING ITEMS */
+.falling{
   position:fixed;
-  top:-50px;
-  font-size:22px;
-  animation:fall linear infinite;
-  opacity:0.25;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
 }
+
+.item{
+  position:absolute;
+  top:-40px;
+  width:18px;
+  height:18px;
+  background:#00ff66;
+  box-shadow:
+    0 0 6px #00ff66,
+    0 0 12px rgba(0,255,100,0.6);
+  animation:fall linear infinite;
+}
+
+.item.diamond{background:#4fffff; box-shadow:0 0 10px #4fffff;}
+.item.red{background:#ff3b3b; box-shadow:0 0 10px #ff3b3b;}
+.item.gold{background:#ffcc00; box-shadow:0 0 10px #ffcc00;}
 
 @keyframes fall{
-  to{transform:translateY(110vh) rotate(360deg);}
+  to{transform:translateY(110vh) rotate(180deg);}
 }
 
-/* Navbar */
+/* 🔝 NAVBAR */
 .navbar{
+  position:sticky;
+  top:0;
+  z-index:10;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:15px 20px;
+  padding:14px 20px;
   background:rgba(0,0,0,0.85);
-  position:sticky;
-  top:0;
-  z-index:100;
+  border-bottom:1px solid #222;
 }
 
 .logo{font-size:22px;}
@@ -58,41 +72,71 @@ body{
   display:none;
 }
 
+/* MENU */
 .nav-links{
   list-style:none;
   display:flex;
-  gap:20px;
+  gap:25px;
 }
 
-.nav-links li{cursor:pointer;}
+.nav-links li{
+  cursor:pointer;
+  opacity:0.8;
+}
+.nav-links li:hover{opacity:1;}
 
-/* Pages */
+/* 📱 MOBILE MENU */
+@media(max-width:768px){
+  .menu{display:block;}
+
+  .nav-links{
+    position:absolute;
+    top:60px;
+    right:0;
+    width:220px;
+    background:#050505;
+    flex-direction:column;
+    padding:15px;
+    transform:translateY(-10px);
+    opacity:0;
+    pointer-events:none;
+    transition:0.35s ease;
+    border-left:1px solid #222;
+  }
+
+  .nav-links.show{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
+  }
+}
+
+/* 📄 PAGES */
 .page{
   min-height:90vh;
-  padding:40px 20px;
+  padding:50px 20px;
   text-align:center;
   display:none;
-  animation:pageIn 0.6s ease;
+  animation:pageFade 0.5s ease;
 }
 
 .page.active{display:block;}
 
-@keyframes pageIn{
-  from{opacity:0; transform:translateY(40px);}
+@keyframes pageFade{
+  from{opacity:0; transform:translateY(25px);}
   to{opacity:1; transform:translateY(0);}
 }
 
-/* Discord Button */
+/* 🔘 DISCORD */
 .discord-btn{
-  margin-top:30px;
+  margin-top:35px;
   display:inline-flex;
   align-items:center;
   gap:10px;
-  padding:14px 22px;
-  background:#111;
-  color:white;
+  padding:14px 24px;
+  background:#0c0c0c;
+  border:1px solid #222;
   border-radius:8px;
-  border:1px solid #333;
   cursor:pointer;
   position:relative;
   overflow:hidden;
@@ -103,25 +147,21 @@ body{
   filter:invert(1);
 }
 
-/* TNT Blast */
+/* 💥 TNT */
 .tnt{
   position:absolute;
-  width:100%;
-  height:100%;
-  background:red;
   inset:0;
+  background:#ff2b2b;
   animation:blast 0.6s ease forwards;
-  z-index:5;
 }
 
 @keyframes blast{
-  0%{opacity:1;}
-  100%{opacity:0; transform:scale(3);}
+  to{opacity:0; transform:scale(3);}
 }
 
-/* Gallery */
+/* 🖼️ GALLERY */
 .grid{
-  margin-top:30px;
+  margin-top:35px;
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
   gap:15px;
@@ -132,38 +172,22 @@ body{
   border-radius:6px;
   border:1px solid #333;
 }
-
-/* Mobile */
-@media(max-width:768px){
-  .menu{display:block;}
-  .nav-links{
-    position:absolute;
-    top:60px;
-    right:0;
-    background:black;
-    flex-direction:column;
-    width:200px;
-    display:none;
-  }
-  .nav-links.show{display:flex;}
-}
 </style>
 </head>
 
 <body>
 
-<!-- 🔥 Falling Items -->
+<!-- 🌌 Falling Pixel Items -->
 <div class="falling">
-  <span style="left:5%;animation-duration:6s;">💎</span>
-  <span style="left:15%;animation-duration:9s;">🗡️</span>
-  <span style="left:30%;animation-duration:7s;">🍎</span>
-  <span style="left:45%;animation-duration:8s;">🪓</span>
-  <span style="left:60%;animation-duration:5s;">🟩</span>
-  <span style="left:75%;animation-duration:10s;">💣</span>
-  <span style="left:90%;animation-duration:6s;">💎</span>
+  <div class="item diamond" style="left:10%;animation-duration:7s;"></div>
+  <div class="item gold" style="left:25%;animation-duration:9s;"></div>
+  <div class="item red" style="left:40%;animation-duration:6s;"></div>
+  <div class="item diamond" style="left:55%;animation-duration:10s;"></div>
+  <div class="item gold" style="left:70%;animation-duration:8s;"></div>
+  <div class="item red" style="left:85%;animation-duration:7s;"></div>
 </div>
 
-<!-- Navbar -->
+<!-- 🔝 NAV -->
 <div class="navbar">
   <div class="logo">Shardex PvP</div>
   <div class="menu" onclick="toggleMenu()">☰</div>
@@ -177,7 +201,7 @@ body{
 <!-- HOME -->
 <div class="page active" id="home">
   <h1>Shardex PvP</h1>
-  <p>Official Minecraft PvP Records</p>
+  <p>Professional Minecraft PvP Records</p>
 
   <div class="discord-btn" onclick="blastAndJoin()">
     <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg">
@@ -230,7 +254,6 @@ function toggleMenu(){
   document.getElementById('menu').classList.toggle('show');
 }
 
-/* 💥 TNT Blast + Redirect */
 function blastAndJoin(){
   const btn=document.querySelector('.discord-btn');
   const tnt=document.createElement('div');
