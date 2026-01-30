@@ -1,1 +1,242 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shardex PvP</title>
+
+<!-- Minecraft Font -->
+<link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Minecraft', sans-serif;
+}
+
+body {
+  background: black;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Minecraft Falling Blocks */
+.minecraft-bg span {
+  position: fixed;
+  top: -50px;
+  color: #2fff00;
+  animation: fall linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+  }
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(0,0,0,0.8);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 22px;
+}
+
+.menu {
+  font-size: 26px;
+  cursor: pointer;
+  display: none;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links li {
+  cursor: pointer;
+}
+
+/* Pages */
+.page {
+  display: none;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.page.active {
+  display: block;
+}
+
+/* Discord Button */
+.discord-btn {
+  margin-top: 25px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  background: #111;
+  color: white;
+  border-radius: 8px;
+  text-decoration: none;
+  border: 1px solid #333;
+}
+
+.discord-btn img {
+  width: 22px;
+  filter: invert(1);
+}
+
+/* Gallery */
+.grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 15px;
+}
+
+.grid img {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #333;
+}
+
+/* Mobile */
+@media(max-width:768px) {
+  .menu {
+    display: block;
+  }
+  .nav-links {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: black;
+    flex-direction: column;
+    width: 200px;
+    display: none;
+  }
+  .nav-links.show {
+    display: flex;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background -->
+<div class="minecraft-bg">
+  <span style="left:10%;animation-duration:6s;">⬛</span>
+  <span style="left:30%;animation-duration:8s;">⬛</span>
+  <span style="left:50%;animation-duration:5s;">⬛</span>
+  <span style="left:70%;animation-duration:9s;">⬛</span>
+  <span style="left:90%;animation-duration:7s;">⬛</span>
+</div>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="logo">Shardex PvP</div>
+  <div class="menu" onclick="toggleMenu()">☰</div>
+  <ul class="nav-links" id="menu">
+    <li onclick="openPage('home')">Home</li>
+    <li onclick="openPage('netherpot')">Netherpot Wins</li>
+    <li onclick="openPage('cpvp')">CPVP Wins</li>
+  </ul>
+</div>
+
+<!-- HOME -->
+<div class="page active" id="home">
+  <h1>Shardex PvP</h1>
+  <p>Official PvP Records</p>
+
+  <a class="discord-btn" href="https://discord.gg/uNyfFKx8rC" target="_blank">
+    <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg">
+    Join Discord
+  </a>
+</div>
+
+<!-- NETHERPOT -->
+<div class="page" id="netherpot">
+  <h2>Netherpot Wins</h2>
+  <div class="grid">
+    <!-- Paste image links -->
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+  </div>
+</div>
+
+<!-- CPVP -->
+<div class="page" id="cpvp">
+  <h2>CPVP Wins</h2>
+  <div class="grid">
+    <!-- Paste image links -->
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+    <img src="PASTE_LINK">
+  </div>
+</div>
+
+<script>
+function openPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.getElementById('menu').classList.remove('show');
+}
+
+function toggleMenu() {
+  document.getElementById('menu').classList.toggle('show');
+}
+</script>
+
+</body>
+  </html>
