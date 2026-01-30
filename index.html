@@ -8,156 +8,110 @@
 <link href="https://fonts.cdnfonts.com/css/minecraft-4" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Minecraft',sans-serif;
-}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Minecraft',sans-serif;}
 html{scroll-behavior:smooth;}
+body{background:black;color:white;overflow-x:hidden;}
 
-body{
-  background:black;
-  color:white;
-  overflow-x:hidden;
-}
-
-/* 🌌 PIXEL FALLING ITEMS */
-.falling{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
-
-.item{
+/* 🌅 DAY NIGHT BACKGROUND (HOME ONLY) */
+.sky{
   position:absolute;
-  top:-40px;
-  width:18px;
-  height:18px;
-  background:#00ff66;
-  box-shadow:
-    0 0 6px #00ff66,
-    0 0 12px rgba(0,255,100,0.6);
+  inset:0;
+  background:linear-gradient(#4aa3ff,#9dd6ff);
+  animation:skyShift 12s linear infinite;
+  z-index:-2;
+}
+@keyframes skyShift{
+  50%{background:linear-gradient(#020111,#191970);}
+}
+
+.sun,.moon{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:50%;
+}
+.sun{
+  width:120px;height:120px;
+  background:#ffcc33;
+  top:60%;
+  animation:sunMove 12s linear infinite;
+}
+@keyframes sunMove{
+  0%{top:60%;opacity:1;}
+  50%{top:110%;opacity:0;}
+  100%{top:60%;opacity:1;}
+}
+
+.moon{
+  width:90px;height:90px;
+  background:#ddd;
+  top:110%;
+  animation:moonMove 12s linear infinite;
+}
+@keyframes moonMove{
+  0%{top:110%;opacity:0;}
+  50%{top:20%;opacity:1;}
+  100%{top:110%;opacity:0;}
+}
+
+/* 🌌 FALLING PIXEL ITEMS */
+.falling{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.item{
+  position:absolute;top:-30px;width:18px;height:18px;
+  background:#4fffff;
+  box-shadow:0 0 10px #4fffff;
   animation:fall linear infinite;
 }
-
-.item.diamond{background:#4fffff; box-shadow:0 0 10px #4fffff;}
-.item.red{background:#ff3b3b; box-shadow:0 0 10px #ff3b3b;}
-.item.gold{background:#ffcc00; box-shadow:0 0 10px #ffcc00;}
-
-@keyframes fall{
-  to{transform:translateY(110vh) rotate(180deg);}
-}
+@keyframes fall{to{transform:translateY(110vh) rotate(180deg);}}
 
 /* 🔝 NAVBAR */
 .navbar{
-  position:sticky;
-  top:0;
-  z-index:10;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
+  position:sticky;top:0;z-index:10;
+  display:flex;justify-content:space-between;align-items:center;
   padding:14px 20px;
-  background:rgba(0,0,0,0.85);
-  border-bottom:1px solid #222;
+  background:rgba(0,0,0,0.75);
 }
-
-.logo{font-size:22px;}
-
-.menu{
-  font-size:26px;
-  cursor:pointer;
-  display:none;
-}
-
-/* MENU */
-.nav-links{
-  list-style:none;
-  display:flex;
-  gap:25px;
-}
-
-.nav-links li{
-  cursor:pointer;
-  opacity:0.8;
-}
+.menu{display:none;font-size:26px;cursor:pointer;}
+.nav-links{list-style:none;display:flex;gap:25px;}
+.nav-links li{cursor:pointer;opacity:0.8;}
 .nav-links li:hover{opacity:1;}
 
-/* 📱 MOBILE MENU */
 @media(max-width:768px){
   .menu{display:block;}
-
   .nav-links{
-    position:absolute;
-    top:60px;
-    right:0;
-    width:220px;
+    position:absolute;top:60px;right:0;
     background:#050505;
     flex-direction:column;
+    width:220px;
     padding:15px;
+    opacity:0;pointer-events:none;
     transform:translateY(-10px);
-    opacity:0;
-    pointer-events:none;
-    transition:0.35s ease;
-    border-left:1px solid #222;
+    transition:.3s;
   }
-
-  .nav-links.show{
-    transform:translateY(0);
-    opacity:1;
-    pointer-events:auto;
-  }
+  .nav-links.show{opacity:1;pointer-events:auto;transform:none;}
 }
 
 /* 📄 PAGES */
-.page{
-  min-height:90vh;
-  padding:50px 20px;
-  text-align:center;
-  display:none;
-  animation:pageFade 0.5s ease;
-}
-
+.page{min-height:90vh;padding:50px 20px;text-align:center;display:none;animation:fade .5s;}
 .page.active{display:block;}
-
-@keyframes pageFade{
-  from{opacity:0; transform:translateY(25px);}
-  to{opacity:1; transform:translateY(0);}
-}
+@keyframes fade{from{opacity:0;transform:translateY(25px);}}
 
 /* 🔘 DISCORD */
 .discord-btn{
   margin-top:35px;
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
+  display:inline-flex;align-items:center;gap:10px;
   padding:14px 24px;
   background:#0c0c0c;
   border:1px solid #222;
   border-radius:8px;
   cursor:pointer;
-  position:relative;
-  overflow:hidden;
+  position:relative;overflow:hidden;
 }
-
-.discord-btn img{
-  width:22px;
-  filter:invert(1);
-}
+.discord-btn img{width:22px;filter:invert(1);}
 
 /* 💥 TNT */
-.tnt{
-  position:absolute;
-  inset:0;
-  background:#ff2b2b;
-  animation:blast 0.6s ease forwards;
-}
-
-@keyframes blast{
-  to{opacity:0; transform:scale(3);}
-}
+.tnt{position:absolute;inset:0;background:#ff2b2b;animation:blast .6s;}
+@keyframes blast{to{opacity:0;transform:scale(3);}}
 
 /* 🖼️ GALLERY */
 .grid{
@@ -166,30 +120,24 @@ body{
   grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
   gap:15px;
 }
-
-.grid img{
-  width:100%;
-  border-radius:6px;
-  border:1px solid #333;
-}
+.grid img{width:100%;border-radius:6px;border:1px solid #333;}
 </style>
 </head>
 
 <body>
 
-<!-- 🌌 Falling Pixel Items -->
+<!-- Falling Items -->
 <div class="falling">
-  <div class="item diamond" style="left:10%;animation-duration:7s;"></div>
-  <div class="item gold" style="left:25%;animation-duration:9s;"></div>
-  <div class="item red" style="left:40%;animation-duration:6s;"></div>
-  <div class="item diamond" style="left:55%;animation-duration:10s;"></div>
-  <div class="item gold" style="left:70%;animation-duration:8s;"></div>
-  <div class="item red" style="left:85%;animation-duration:7s;"></div>
+  <div class="item" style="left:10%;animation-duration:7s"></div>
+  <div class="item" style="left:30%;animation-duration:9s"></div>
+  <div class="item" style="left:50%;animation-duration:6s"></div>
+  <div class="item" style="left:70%;animation-duration:8s"></div>
+  <div class="item" style="left:90%;animation-duration:7s"></div>
 </div>
 
-<!-- 🔝 NAV -->
+<!-- NAV -->
 <div class="navbar">
-  <div class="logo">Shardex PvP</div>
+  <div>Shardex PvP</div>
   <div class="menu" onclick="toggleMenu()">☰</div>
   <ul class="nav-links" id="menu">
     <li onclick="openPage('home')">Home</li>
@@ -200,6 +148,10 @@ body{
 
 <!-- HOME -->
 <div class="page active" id="home">
+  <div class="sky"></div>
+  <div class="sun"></div>
+  <div class="moon"></div>
+
   <h1>Shardex PvP</h1>
   <p>Minecraft PvP Records</p>
 
@@ -213,16 +165,7 @@ body{
 <div class="page" id="nether">
   <h2>Netherpot Wins</h2>
   <div class="grid">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
+    <img src="PASTE_LINK"><img src="PASTE_LINK"><img src="PASTE_LINK">
   </div>
 </div>
 
@@ -230,16 +173,7 @@ body{
 <div class="page" id="cpvp">
   <h2>CPVP Wins</h2>
   <div class="grid">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
-    <img src="PASTE_LINK">
+    <img src="PASTE_LINK"><img src="PASTE_LINK"><img src="PASTE_LINK">
   </div>
 </div>
 
@@ -249,20 +183,16 @@ function openPage(id){
   document.getElementById(id).classList.add('active');
   document.getElementById('menu').classList.remove('show');
 }
-
 function toggleMenu(){
   document.getElementById('menu').classList.toggle('show');
 }
-
 function blastAndJoin(){
   const btn=document.querySelector('.discord-btn');
-  const tnt=document.createElement('div');
-  tnt.className='tnt';
-  btn.appendChild(tnt);
-
+  const t=document.createElement('div');
+  t.className='tnt';btn.appendChild(t);
   setTimeout(()=>{
     window.open("https://discord.gg/uNyfFKx8rC","_blank");
-    tnt.remove();
+    t.remove();
   },500);
 }
 </script>
